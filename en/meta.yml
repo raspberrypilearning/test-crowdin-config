@@ -7,14 +7,22 @@ copyedit: false
 test_string: jo
 last_tested: "2025-01-01"
 steps:
-  - title: What you will make
-  - title: Step title
-  - title: What can you do now?
+  - title: You will make
+  - title: Create your scene
+  - title: Pico says hello
+    completion:
+      - engaged
+  - title: Pico plays a sound
+  - title: Nano switches costumes
+  - title: Giga changes colour
+    completion:
+      - internal
   - title: Quick quiz
-  knowledge_quiz:
-    path: quiz1
-    version: 1
-    questions: 3
-    passing_score: 3
-  completion:
-    - external
+    knowledge_quiz:
+      path: quiz1
+      version: 1
+      questions: 3
+      passing_score: 3
+    completion:
+      - external
+  - title: Upgrade your project
