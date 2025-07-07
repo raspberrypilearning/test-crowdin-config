@@ -6,6 +6,18 @@ listed: false
 copyedit: false
 last_tested: "2025-01-01"
 steps:
-  - title: What you will make
-  - title: Step title
-  - title: What can you do now?
+  0:
+title: What you will make
+  1:
+title: Step title
+  2:
+title: What can you do now?
+  3:
+title: Quick quiz
+  knowledge_quiz:
+    path: quiz1
+    version: 1
+    questions: 3
+    passing_score: 3
+  completion:
+    - external
