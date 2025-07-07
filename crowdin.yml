@@ -1,8 +1,3 @@
 files:
   - source: /en/**/*.*
     translation: /%locale%/**/%original_file_name%
-  - source: /en/**/*.md
-    translation: /%locale%/**/%original_file_name%
-    content_segmentation: true
-    exclude_patterns:
-      - '^---.*---$''
