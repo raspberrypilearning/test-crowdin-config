@@ -4,6 +4,7 @@ description: default-project-template description
 version: 1
 listed: false
 copyedit: false
+test_string: jo
 last_tested: "2025-01-01"
 steps:
   - title: What you will make
