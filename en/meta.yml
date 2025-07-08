@@ -10,10 +10,5 @@ steps:
   - title: Step title
   - title: What can you do now?
   - title: Quick quiz
-  knowledge_quiz:
-    path: quiz1
-    version: 1
-    questions: 3
-    passing_score: 3
   completion:
     - external
