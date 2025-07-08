@@ -1,23 +1,16 @@
-title: standaard-projectsjabloon
-hero_image: images/banner.png
-description: default-project-template description
-version: 1
+title:
+hero_image:
+description:
+version: 0
 listed: false
 copyedit: false
-last_tested: "2025-01-01"
+last_tested: ""
 steps:
   0:
-title: What you will make
+title:
   1:
-title: Step title
+title:
   2:
-title: What can you do now?
-  3:
-title: Quick quiz
-  knowledge_quiz:
-    path: quiz1
-    version: 1
-    questions: 3
-    passing_score: 3
+title:
   completion:
-    - external
+    - 
