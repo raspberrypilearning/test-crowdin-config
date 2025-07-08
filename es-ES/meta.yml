@@ -6,11 +6,8 @@ listed: false
 copyedit: false
 last_tested: ""
 steps:
-  0:
-title:
-  1:
-title:
-  2:
-title:
-  completion:
-    - 
+  - title:
+  - title:
+  - title:
+    completion:
+      - 
