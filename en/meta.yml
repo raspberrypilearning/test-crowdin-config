@@ -8,6 +8,6 @@ last_tested: "2025-01-01"
 steps:
   - title: What you will make
   - title: What can you do now?
-  - title: Quick quiz
-  completion:
-    - external
+  - title: Giga changes colour
+    completion:
+      - internal
