@@ -1,6 +1,6 @@
 ## You will make
 
-Create a space scene with characters 👾 that 'emote' to share their thoughts or feelings.
+Make a space scene with characters 👾 that 'emote' to share their thoughts or feelings.
 
 In Scratch, characters and objects are called **sprites**, and they appear on the **Stage**.
 
