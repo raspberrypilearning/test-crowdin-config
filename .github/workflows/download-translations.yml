@@ -1,4 +1,4 @@
-name: Crowdin Upload Action
+name: Crowdin Download Action
 
 on:
   schedule:
