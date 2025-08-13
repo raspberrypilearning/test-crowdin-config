@@ -7,7 +7,7 @@ copyedit: false
 last_tested: "2025-01-01"
 steps:
   - title: Wat ga je maken
-  - title: What can you do now?
+  - title: Wat kun je nu doen?
   - title: Giga changes colour
     completion:
       - internal
