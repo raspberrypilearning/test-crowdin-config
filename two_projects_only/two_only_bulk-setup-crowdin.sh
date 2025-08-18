@@ -79,55 +79,6 @@ check_workflow_files() {
     echo -e "${GREEN}✅ Found all required template files in: $TEMPLATE_REPO${NC}"
 }
 
-# Function to disable GitHub integration in Crowdin project
-disable_crowdin_github_integration() {
-    local crowdin_project_id="$1"
-    
-    echo "  🔌 Checking for GitHub integration in Crowdin project $crowdin_project_id..."
-    
-    # Check if CROWDIN_API_TOKEN is available (should be set as org secret)
-    if [ -z "$CROWDIN_API_TOKEN" ]; then
-        echo "  ⚠️  CROWDIN_API_TOKEN not available, skipping integration disable"
-        return 0
-    fi
-    
-    # Get list of integrations for the project
-    local integrations_response
-    integrations_response=$(curl -s -H "Authorization: Bearer $CROWDIN_API_TOKEN" \
-        "https://api.crowdin.com/api/v2/projects/$crowdin_project_id/integrations" 2>/dev/null)
-    
-    if [ $? -ne 0 ]; then
-        echo "  ⚠️  Failed to fetch integrations, skipping"
-        return 0
-    fi
-    
-    # Find GitHub integration ID
-    local github_integration_id
-    github_integration_id=$(echo "$integrations_response" | \
-        jq -r '.data[] | select(.data.type == "github") | .data.id' 2>/dev/null)
-    
-    if [ -z "$github_integration_id" ] || [ "$github_integration_id" = "null" ]; then
-        echo "  ✅ No GitHub integration found (already disabled or never set up)"
-        return 0
-    fi
-    
-    echo "  🔧 Found GitHub integration (ID: $github_integration_id), disabling..."
-    
-    # Disable the GitHub integration
-    local disable_response
-    disable_response=$(curl -s -X PATCH \
-        -H "Authorization: Bearer $CROWDIN_API_TOKEN" \
-        -H "Content-Type: application/json" \
-        -d '{"status": "disabled"}' \
-        "https://api.crowdin.com/api/v2/projects/$crowdin_project_id/integrations/$github_integration_id" 2>/dev/null)
-    
-    if [ $? -eq 0 ]; then
-        echo "  ✅ GitHub integration disabled successfully"
-    else
-        echo "  ⚠️  Failed to disable GitHub integration"
-    fi
-}
-
 # Function to process repos from CSV
 process_csv_repos() {
     while IFS=',' read -r repo_name crowdin_project_id; do
@@ -200,10 +151,8 @@ process_single_repo() {
         echo "  🔐 Setting GitHub secrets..."
         gh secret set CROWDIN_PROJECT_ID --body "$crowdin_project_id" --repo "$repo_name"
         
-        # Disable built-in GitHub integration in Crowdin
-        disable_crowdin_github_integration "$crowdin_project_id"
-        
-        # Clean up
+        # Clean up repository clone
+        cd "$SCRIPT_DIR"
         rm -rf "$TEMP_DIR"
         
         echo -e "  ${GREEN}✅ Completed: $repo_name${NC}"
@@ -244,8 +193,19 @@ process_csv_repos
 
 # Cleanup template repository
 echo -e "${BLUE}🧹 Cleaning up template files...${NC}"
-rm -rf "$TEMPLATE_DIR_FULL"
+if [ -d "$TEMPLATE_DIR_FULL" ]; then
+    rm -rf "$TEMPLATE_DIR_FULL"
+    echo "  ✅ Template directory cleaned up"
+else
+    echo "  ℹ️  Template directory already clean"
+fi
+
+# Cleanup any remaining temporary directories
+if [ -d "$TEMP_DIR" ]; then
+    rm -rf "$TEMP_DIR"
+    echo "  ✅ Temporary directory cleaned up"
+fi
 
 echo -e "\n${GREEN}🎉 Bulk setup completed!${NC}"
 echo -e "${YELLOW}Note: Make sure to set CROWDIN_API_TOKEN as an organization secret${NC}"
-echo -e "${YELLOW}Note: GitHub integrations will be disabled if CROWDIN_API_TOKEN is available${NC}"
+echo -e "${YELLOW}Note: Use disable-crowdin-github-integration.sh to disable GitHub integrations if needed${NC}"
