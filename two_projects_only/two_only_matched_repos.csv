@@ -1,0 +1,3 @@
+repository_name,project_title,crowdin_project_id,crowdin_project_name,match_confidence
+test-crowdin-sync-one,"Test crowdin sync one",820100,"RPF - Project (Python) - Test crowdin sync one",90%
+test-crowdin-sync-two,"Test crowdin sync two",820084,"RPF - Project (Web Development) - Test crowdin sync two",90%
