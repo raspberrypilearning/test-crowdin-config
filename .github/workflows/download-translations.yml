@@ -32,6 +32,7 @@ jobs:
           pull_request_title: "New Crowdin translations"
           pull_request_body: "New Crowdin pull request with translations"
           pull_request_base_branch_name: "master"
+          # Below is only needed for Crowdin projects that have been created in the Crowdin UI
           crowdin_branch_name: "master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
